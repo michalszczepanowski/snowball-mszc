@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 @SpringBootApplication
@@ -63,36 +62,36 @@ public class Application {
     PlayerState self = arenaUpdate.arena.state.get(arenaUpdate._links.self.href);
 
     if (self.wasHit) {
-        return goSomewhere();
+        if (rand.nextInt(5) == 0) {
+            return "R";
+        }
+        return "F";
     }
 
     if (scoreNotChanged(self.score)) {
-      return goSomewhere();
+        if (rand.nextInt(3) == 0) {
+            return "R";
+        }
+        return "F";
     }
 
     if (self.direction.equals("N")) {
       if (doIShootN(arenaUpdate, self)) return "T";
+      return "R";
     } else if (self.direction.equals("E")) {
       if (doIShootE(arenaUpdate, self)) return "T";
+      return "R";
     } else if (self.direction.equals("S")) {
       if (doIShootS(arenaUpdate, self)) return "T";
+      return "R";
     } else {
       if (doIShootW(arenaUpdate, self)) return "T";
+      if (rand.nextInt(5) == 0) {
+        return "R";
+        }
+        return "F";
     }
-
-    return goSomewhere();
   }
-
-    private String goSomewhere() {
-      int whereTogo = rand.nextInt(5);
-      if (whereTogo < 2) {
-          return "F";
-      } else if (whereTogo == 3) {
-          return "R";
-      } else {
-          return "L";
-      }
-    }
 
     private boolean scoreNotChanged(Integer score) {
         i++;
@@ -121,7 +120,7 @@ public class Application {
             .stream()
             .filter(entry -> entry.getValue().x - self.x < 4)
             .filter(entry -> entry.getValue().x - self.x > 0)
-            .anyMatch(entry -> Objects.equals(entry.getValue().y, self.y));
+            .anyMatch(entry -> entry.getValue().y == self.y);
   }
 
   private boolean doIShootS(ArenaUpdate arenaUpdate, PlayerState self) {
@@ -137,7 +136,7 @@ public class Application {
             .stream()
             .filter(entry -> self.x - entry.getValue().x < 4)
             .filter(entry -> self.x - entry.getValue().x > 0)
-            .anyMatch(entry -> Objects.equals(entry.getValue().y, self.y));
+            .anyMatch(entry -> entry.getValue().y == self.y);
   }
 
 }
