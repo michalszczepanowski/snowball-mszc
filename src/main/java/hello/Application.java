@@ -62,36 +62,32 @@ public class Application {
     PlayerState self = arenaUpdate.arena.state.get(arenaUpdate._links.self.href);
 
     if (self.wasHit) {
-        if (rand.nextInt(5) == 0) {
-            return "R";
-        }
-        return "F";
-    }
-
-    if (scoreNotChanged(self.score)) {
-        if (rand.nextInt(3) == 0) {
-            return "R";
-        }
-        return "F";
+        return goSomewhere();
     }
 
     if (self.direction.equals("N")) {
       if (doIShootN(arenaUpdate, self)) return "T";
-      return "R";
     } else if (self.direction.equals("E")) {
       if (doIShootE(arenaUpdate, self)) return "T";
-      return "R";
     } else if (self.direction.equals("S")) {
       if (doIShootS(arenaUpdate, self)) return "T";
-      return "R";
     } else {
       if (doIShootW(arenaUpdate, self)) return "T";
-      if (rand.nextInt(5) == 0) {
-        return "R";
-        }
-        return "F";
     }
+
+    return goSomewhere();
   }
+
+    private String goSomewhere() {
+      int whereTogo = rand.nextInt(5);
+      if (whereTogo < 2) {
+          return "F";
+      } else if (whereTogo == 3) {
+          return "R";
+      } else {
+          return "L";
+      }
+    }
 
     private boolean scoreNotChanged(Integer score) {
         i++;
