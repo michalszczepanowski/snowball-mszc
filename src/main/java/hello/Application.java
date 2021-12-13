@@ -123,8 +123,8 @@ public class Application {
     return arenaUpdate.arena.state.entrySet()
             .stream()
             .filter(entry -> entry.getValue().x.equals(self.x))
-            .filter(entry -> entry.getValue().y - self.y > 0)
-            .anyMatch(entry -> entry.getValue().y - self.y < 4);
+            .filter(entry -> self.y - entry.getValue().y > 0)
+            .anyMatch(entry -> self.y  - entry.getValue().y < 4);
   }
 
   private boolean doIShootE(ArenaUpdate arenaUpdate, PlayerState self) {
@@ -139,8 +139,8 @@ public class Application {
     return arenaUpdate.arena.state.entrySet()
             .stream()
             .filter(entry -> entry.getValue().x.equals(self.x))
-            .filter(entry -> (self.y) - (entry.getValue().y) > 0)
-            .anyMatch(entry -> (self.y) - (entry.getValue().y) < 4);
+            .filter(entry -> (entry.getValue().y) - (self.y) > 0)
+            .anyMatch(entry -> (entry.getValue().y) - (self.y) < 4);
   }
 
   private boolean doIShootW(ArenaUpdate arenaUpdate, PlayerState self) {
