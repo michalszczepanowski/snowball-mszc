@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 @SpringBootApplication
@@ -120,7 +121,7 @@ public class Application {
             .stream()
             .filter(entry -> entry.getValue().x - self.x < 4)
             .filter(entry -> entry.getValue().x - self.x > 0)
-            .anyMatch(entry -> entry.getValue().y == self.y);
+            .anyMatch(entry -> Objects.equals(entry.getValue().y, self.y));
   }
 
   private boolean doIShootS(ArenaUpdate arenaUpdate, PlayerState self) {
@@ -136,7 +137,7 @@ public class Application {
             .stream()
             .filter(entry -> self.x - entry.getValue().x < 4)
             .filter(entry -> self.x - entry.getValue().x > 0)
-            .anyMatch(entry -> entry.getValue().y == self.y);
+            .anyMatch(entry -> Objects.equals(entry.getValue().y, self.y));
   }
 
 }
