@@ -65,6 +65,10 @@ public class Application {
         return goSomewhere();
     }
 
+    if (scoreNotChanged(self.score)) {
+      return goSomewhere();
+    }
+
     if (self.direction.equals("N")) {
       if (doIShootN(arenaUpdate, self)) return "T";
     } else if (self.direction.equals("E")) {
